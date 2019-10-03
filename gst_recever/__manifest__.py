@@ -7,9 +7,9 @@
     IMPORTANT: We use the customer data obtained from the Recever integration in order to make the invoices.""",
 
     'author': "Guadaltech Soluciones Tecnológicas S.L",
-    'website': "http://www.guadaltech.es",
+    'website': "http://www.guadaltech.es - https://www.recever.app/",
 
-    'category': 'POS',
+    'category': "Point of Sale",
     'version': '12.0.1.0.0',
 
     'depends': ['point_of_sale','base', 'pos_sale'],

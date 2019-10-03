@@ -1,0 +1,12 @@
+<odoo>
+    <data>
+        <template id="assets" inherit_id="point_of_sale.assets">
+            <xpath expr="." position="inside">
+                <script type="text/javascript" src="/gst_recever/static/src/js/screen_extension.js"/>
+                <script type="text/javascript" src="/gst_recever/static/src/js/models_extension.js"/>
+                <link rel="stylesheet" href="/gst_recever/static/src/css/styles.css"
+                      id="gst_recever-recever-stylesheet"/>
+            </xpath>
+        </template>
+    </data>
+</odoo>

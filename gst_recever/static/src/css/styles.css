@@ -1,0 +1,126 @@
+.screen .leftered-content .button {
+    line-height: 32px;
+    padding: 3px 13px;
+    font-size: 20px;
+    border-radius: 3px;
+    background-color: green;
+    width: 100%;
+    color: white;
+    text-align: center !important;
+    margin-left: 15%;
+}
+
+.input-qr-real {
+    width: 180px !important;
+    line-height: 24px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: all 150ms linear;
+    background: rgb(230, 230, 230);
+    border-style: solid;
+    border-width: 0px 0px 2px 0px;
+    border-color: green;
+    font-size: 20px;
+    font-family: "Lato","Lucida Grande", Helvetica, Verdana, Arial;
+    text-align: center;
+}
+
+.screen .leftered-content {
+    position: absolute;
+    right:75%; top: 64px; bottom: 0px;
+    left: 0%;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 13px;
+}
+
+/* The switch - the box around the slider */
+.switch.box .switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: fit-content;
+}
+
+/* Hide default HTML checkbox */
+.switch.box .switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: -50px;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  width: 164px;
+  height: 52px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 44px;
+  width: 44px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: rgb(110,200,155);
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(112px);
+  -ms-transform: translateX(112px);
+  transform: translateX(112px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+.recever.box {
+    text-align: center;
+}
+
+.switch.box {
+    width: 100%;
+    min-height: 100px;
+}
+
+.search.box {
+    padding-top: 50px;
+    text-align: left;
+    margin-left: 82px;
+}
+
+.fa-search:before {
+    color: rgb(128,128,128);
+    cursor: pointer;
+    font-size: 36px;
+    margin-left: 10px;
+}
+
+.recever-image {
+    width: 59%;
+}

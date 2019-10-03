@@ -1,0 +1,292 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* gst_recever
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 12.0\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2019-08-29 12:59+0000\n"
+"PO-Revision-Date: 2019-08-30 10:33+0200\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: es\n"
+"X-Generator: Poedit 2.2.3\n"
+
+#. module: gst_recever
+#: code:addons/gst_recever/models/pos_recever.py:217
+#, python-format
+msgid "A server error has occurred. If it happens frequently, contact your provider."
+msgstr "Se ha producido un error de servidor. Si ocurre con frecuencia, comuníquese con su proveedor."
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__recever_baseurl
+msgid "Base url"
+msgstr "Url base"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/xml/recever.xml:24
+#, python-format
+msgid "Busca al cliente"
+msgstr "Busca al cliente"
+
+#. module: gst_recever
+#: model_terms:ir.ui.view,arch_db:gst_recever.view_recever_connector_form_data
+msgid "Check connection"
+msgstr "Comprobar conexión"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:28
+#, python-format
+msgid "Client must have a QR code."
+msgstr "El cliente debe tener un código QR."
+
+#. module: gst_recever
+#: code:addons/gst_recever/models/pos_recever.py:76
+#: code:addons/gst_recever/models/pos_recever.py:144
+#: code:addons/gst_recever/models/pos_recever.py:220
+#, python-format
+msgid "Connection has been lost. You can't use Recever offline."
+msgstr "La conexión se ha perdido. No puedes usar Recever sin conexión."
+
+#. module: gst_recever
+#: model:ir.model,name:gst_recever.model_res_partner
+msgid "Contact"
+msgstr "Contacto"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__create_uid
+msgid "Created by"
+msgstr "Creado por"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__create_date
+msgid "Created on"
+msgstr "Creado el"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__display_name
+msgid "Display Name"
+msgstr "Nombre mostrado"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__recever_email
+msgid "Email"
+msgstr "Correo electrónico"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:37
+#, python-format
+msgid "Empty client"
+msgstr "Cliente vacío"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:83
+#: code:addons/gst_recever/static/src/js/screen_extension.js:91
+#: code:addons/gst_recever/static/src/js/screen_extension.js:99
+#: code:addons/gst_recever/static/src/js/screen_extension.js:228
+#, python-format
+msgid "Error"
+msgstr "Error"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__id
+msgid "ID"
+msgstr "ID"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever____last_update
+msgid "Last Modified on"
+msgstr "Última modificación en"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__write_uid
+msgid "Last Updated by"
+msgstr "Última actualización por"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__write_date
+msgid "Last Updated on"
+msgstr "Última actualización el"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__recever_license
+msgid "License"
+msgstr "Licencia"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:189
+#, python-format
+msgid "Non-existent client"
+msgstr "Cliente vacío"
+
+#. module: gst_recever
+#: model_terms:ir.ui.view,arch_db:gst_recever.view_recever_connector_form_data
+msgid "Obtains the token from the API of Recever."
+msgstr "Obtiene el token de la API."
+
+#. module: gst_recever
+#: model:ir.model,name:gst_recever.model_pos_recever
+msgid "POS Recever configuration"
+msgstr "Configuracion de Recever en POS"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__recever_password
+msgid "Password"
+msgstr "Contraseña"
+
+#. module: gst_recever
+#: model_terms:ir.ui.view,arch_db:gst_recever.view_recever_connector_tree_data
+msgid "Recever Parameters"
+msgstr "Parámetros de Recever"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_res_partner__qr_recever_code
+#: model:ir.model.fields,field_description:gst_recever.field_res_users__qr_recever_code
+msgid "Recever QR"
+msgstr "QR de Recever"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/xml/recever.xml:9
+#, python-format
+msgid "Recever Ticket"
+msgstr "Ticket Recever"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/xml/recever.xml:35
+#: code:addons/gst_recever/static/src/xml/recever.xml:46
+#, python-format
+msgid "Recever code"
+msgstr "Código de Recever"
+
+#. module: gst_recever
+#: model_terms:ir.ui.view,arch_db:gst_recever.view_recever_connector_form_data
+msgid "Recever configuration"
+msgstr "Configuración de Recever"
+
+#. module: gst_recever
+#: code:addons/gst_recever/models/pos_recever.py:73
+#, python-format
+msgid "Recever configuration is empty. Fill it before you continue."
+msgstr "Recever no está configurado. Rellene los campos antes de continuar."
+
+#. module: gst_recever
+#: code:addons/gst_recever/models/pos_recever.py:29
+#, python-format
+msgid "There can only be one configuration. Edit the created one."
+msgstr "Solo puede haber una configuración. Edite la existente."
+
+#. module: gst_recever
+#: code:addons/gst_recever/models/pos_recever.py:108
+#, python-format
+msgid "The filled content is correct. You can use Recever now."
+msgstr "Los campos son correctos. Ya puede usar Recever."
+
+#. module: gst_recever
+#: code:addons/gst_recever/models/pos_recever.py:215
+#, python-format
+msgid "%s send."
+msgstr "El/la %s se ha recibido correctamente."
+
+#. module: gst_recever
+#: model:ir.ui.menu,name:gst_recever.menu_padre_recever_connector
+msgid "Recever connection"
+msgstr "Conexión con Recever"
+
+#. module: gst_recever
+#: model:ir.actions.act_window,name:gst_recever.action_recever_connector
+#: model_terms:ir.ui.view,arch_db:gst_recever.view_recever_connector_form_data
+msgid "Recever connector"
+msgstr "Conector de Recever"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:75
+#, python-format
+msgid "Success"
+msgstr "Éxito"
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_recever__recever_token
+msgid "Token"
+msgstr "Token"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:27
+#, python-format
+msgid "Wrong client"
+msgstr "Cliente erróneo"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:46
+#, python-format
+msgid "You must add a QR in order to make a Recever."
+msgstr "Debe añadir un QR para poder crear un Recever."
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:154
+#: code:addons/gst_recever/static/src/js/screen_extension.js:235
+#, python-format
+msgid "You must add a QR in order to use Recever."
+msgstr "Debe añadir un QR para poder utilizar Recever."
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:190
+#, python-format
+msgid "You need to create a new client to use Recever."
+msgstr "Tiene que crear un nuevo cliente para usar iRecever."
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:38
+#, python-format
+msgid "You need to select a client in order to use iRecever."
+msgstr "Tiene que seleccionar un cliente para usar iRecever."
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:84
+#: code:addons/gst_recever/static/src/js/screen_extension.js:92
+#: code:addons/gst_recever/static/src/js/screen_extension.js:100
+#: code:addons/gst_recever/static/src/js/screen_extension.js:229
+#, python-format
+msgid "arguments"
+msgstr "argumentos"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/js/screen_extension.js:45
+#: code:addons/gst_recever/static/src/js/screen_extension.js:153
+#: code:addons/gst_recever/static/src/js/screen_extension.js:234
+#, python-format
+msgid "empty QR"
+msgstr "qr vacío"
+
+#. module: gst_recever
+#. openerp-web
+#: code:addons/gst_recever/static/src/xml/recever.xml:16
+#, python-format
+msgid "iRecever Invoice"
+msgstr "factura iRecever"
+
+#. module: gst_recever
+#: model:ir.model.fields,help:gst_recever.field_pos_recever__recever_email
+#: model:ir.model.fields,help:gst_recever.field_pos_recever__recever_license
+#: model:ir.model.fields,help:gst_recever.field_pos_recever__recever_password
+msgid "obtain it at the Recever page."
+msgstr "obténgalo en la página de Recever."

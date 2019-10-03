@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="send_to_recever" xml:space="preserve">
+
+    <t t-extend="PaymentScreenWidget">
+        <t t-jquery=".left-content.pc40.touch-scrollable.scrollable-y" t-operation="append">
+            <div class="recever box">
+                <img class="recever-image" src="/gst_recever/static/src/xml/RECEVER.png"/>
+                <div class="switch box">
+                    <h1>Recever Ticket</h1>
+                    <label class="switch">
+                      <input type="checkbox" id="recever-checkbox"/>
+                        <span class="slider round"/>
+                    </label>
+                </div>
+                <div class="switch box" style="inline-block">
+                    <h1>iRecever Invoice</h1>
+                    <label class="switch">
+                      <input type="checkbox" id="irecever-checkbox"/>
+                        <span class="slider round"/>
+                    </label>
+                </div>
+                <div class="search box">
+                    <input class='input-qr-real' type="text"/>
+                    <span class="button search-customer" title="Busca al cliente">
+                        <i class="fa fa-search" role="img" aria-hidden="true"/>
+                    </span>
+                </div>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetailsEdit">
+        <t t-jquery=".client-details-left" t-operation="append">
+            <div class="client-detail">
+                <span class="label">
+                    Recever code
+                </span>
+                <input class="detail client-recever" name="qr_recever_code"/>
+            </div>
+        </t>
+    </t>
+
+    <t t-extend="ClientDetails">
+        <t t-jquery=".client-details-right" t-operation="append">
+            <div class="client-detail">
+                <span class="label">
+                    Recever code
+                </span>
+                <t t-if='partner.qr_recever_code'>
+                    <span class='detail client-recever'><t t-esc='partner.qr_recever_code'/></span>
+                </t>
+            </div>
+        </t>
+    </t>
+</templates>

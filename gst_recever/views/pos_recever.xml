@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <record id="view_recever_connector_form_data" model="ir.ui.view">
+            <field name="name">view.recever.connector.form.data</field>
+            <field name="model">pos.recever</field>
+            <field name="arch" type="xml">
+                <form string="Recever connector">
+                    <sheet>
+                        <group string="Recever configuration">
+                            <group>
+                                <field name="recever_email"/>
+                                <field name="recever_password" password="True"/>
+                                <field name="recever_license"/>
+                                <button name="obtain_token" type="object" string="Check connection"
+                                        class="oe_highlight" help="Obtains the token from the API of Recever."/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_recever_connector_tree_data">
+            <field name="model">pos.recever</field>
+            <field name="arch" type="xml">
+                <tree string="Recever Parameters">
+                    <field name="recever_email"/>
+                    <field name="recever_password" password="True"/>
+                    <field name="recever_license"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_recever_connector" model="ir.actions.act_window">
+            <field name="name">Recever connector</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">pos.recever</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem
+                id="menu_padre_recever_connector"
+                name="Recever connection"
+                parent="point_of_sale.menu_point_root"
+                action="action_recever_connector"
+                groups="point_of_sale.group_pos_manager"/>
+    </data>
+</odoo>

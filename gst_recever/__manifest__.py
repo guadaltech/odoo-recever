@@ -22,7 +22,7 @@
     ],
     'qweb': ['static/src/xml/recever.xml'],
     'installable': True,
-    'images': 'static/description/Banner.jpg',
+    'images': ['static/description/Banner.jpg'],
     'license': 'LGPL-3',
     'support': 'hola@guadaltech.es'
 }

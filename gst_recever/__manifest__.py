@@ -24,5 +24,8 @@
     'installable': True,
     'images': ['static/description/Banner.jpg'],
     'license': 'LGPL-3',
-    'support': 'hola@guadaltech.es'
+    'support': 'hola@guadaltech.es',
+    'installable': True,
+    'auto_install': False,
+    'application': True,
 }

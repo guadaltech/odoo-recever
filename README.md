@@ -3,7 +3,7 @@ GST RECEVER
 
 That module makes an integration between Recever and Odoo.
 
-![alt text](gst_recever/static/description/images/main_2.png)
+![alt text](gst_recever/static/description/images/main_screenshot.png)
 
 Credits
 =======

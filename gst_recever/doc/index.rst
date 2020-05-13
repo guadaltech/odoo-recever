@@ -21,6 +21,7 @@ Features
 * Allows you to connect to your establishment account.
 * Allows you to fill the QR code of Recever.
 * Allows you to send a Recever or iRecever to your account and to the buyer one.
+* Allows you to refund a Recever or iRecever.
 
 Requirements
 ============
@@ -35,7 +36,7 @@ Usage
 * Fill the form and then click on "Check connection".
 * If a success message is shown, then go to the Point of Sale.
 
-* You'll see new options for Recever at the payment screen. Chooose between Recever or iRecever and fill the QR input.
+* You'll see new options for Recever at the payment screen. Chooose between Recever or iRecever and fill the QR inputs.
 
 That's all!
 

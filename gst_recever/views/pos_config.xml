@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="pos_config_view_form_ubicacion_tpv" model="ir.ui.view">
+            <field name="name">pos.config.form.view.ubicacion.tpv</field>
+            <field name="model">pos.config</field>
+            <field name="inherit_id" ref="point_of_sale.pos_config_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet" position="inside">
+                    <h2>Location</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Location of the reports</span>
+                                <div class="text-muted">
+                                    That location will be visible at the reports printed by the TPV
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16" title="">
+                                        <label for="street" string="Street" class="col-lg-3 o_light_label"/>
+                                        <field name="street" placeholder="Street..."/>
+                                        <label for="city" string="City" class="col-lg-3 o_light_label"/>
+                                        <field name="city" placeholder="City"/>
+                                        <label for="state_id" string="State" class="col-lg-3 o_light_label"/>
+                                        <field name="state_id" placeholder="State" options="{&quot;no_open&quot;: True}" context="{'country_id': country_id, 'zip': zip}"/>
+                                        <label for="zip" string="ZIP" class="col-lg-3 o_light_label"/>
+                                        <field name="zip" placeholder="ZIP"/>
+                                        <label for="country_id" string="Country" class="col-lg-3 o_light_label"/>
+                                        <field name="country_id" placeholder="Country" options="{&quot;no_open&quot;: True, &quot;no_create&quot;: True}"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h2>Others</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <span class="o_form_label">Final message</span>
+                                <div class="text-muted">
+                                    That message will be printed at the end ot fhe Recevers and iRecevers
+                                </div>
+                                <div class="content-group">
+                                    <div class="row mt16" title="">
+                                        <label for="ticket_message" string="Message" class="col-lg-3 o_light_label"/>
+                                        <field name="ticket_message" placeholder="Message..."/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

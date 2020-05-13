@@ -7,8 +7,7 @@ var _super_posmodel = models.PosModel.prototype;
 models.PosModel = models.PosModel.extend({
 
     push_and_invoice_order: function(order){
-        try {
-            document.querySelector('#recever-checkbox:checked').value
+         if(document.querySelector('#recever-checkbox:checked') || document.querySelector('#irecever-checkbox:checked')) {
             var self = this;
             var invoiced = new $.Deferred();
 
@@ -29,7 +28,6 @@ models.PosModel = models.PosModel.extend({
                 });
 
                 transfer.pipe(function(order_server_id){
-
                     if (order_server_id.length) {
                         invoiced.resolve();
                         done.resolve();
@@ -41,7 +39,7 @@ models.PosModel = models.PosModel.extend({
                 return done;
             });
             return invoiced;
-        } catch(error) {
+        } else {
             return _super_posmodel.push_and_invoice_order.apply(this, arguments);
         }
     },

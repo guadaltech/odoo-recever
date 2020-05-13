@@ -4,26 +4,33 @@
     <t t-extend="PaymentScreenWidget">
         <t t-jquery=".left-content.pc40.touch-scrollable.scrollable-y" t-operation="append">
             <div class="recever box">
-                <img class="recever-image" src="/gst_recever/static/src/xml/RECEVER.png"/>
-                <div class="switch box">
-                    <h1>Recever Ticket</h1>
-                    <label class="switch">
-                      <input type="checkbox" id="recever-checkbox"/>
-                        <span class="slider round"/>
-                    </label>
-                </div>
-                <div class="switch box" style="inline-block">
-                    <h1>iRecever Invoice</h1>
-                    <label class="switch">
-                      <input type="checkbox" id="irecever-checkbox"/>
-                        <span class="slider round"/>
-                    </label>
+                <div class="recever-mini-box">
+                    <img class="recever-image" src="/gst_recever/static/src/xml/RECEVER.png"/>
+                    <div class="switch box">
+                        <h1>Recever Ticket</h1>
+                        <label class="switch">
+                          <input type="checkbox" id="recever-checkbox"/>
+                            <span class="slider round"/>
+                        </label>
+                    </div>
+                    <div class="switch box">
+                        <h1>iRecever Invoice</h1>
+                        <label class="switch">
+                          <input type="checkbox" id="irecever-checkbox"/>
+                            <span class="slider round"/>
+                        </label>
+                    </div>
                 </div>
                 <div class="search box">
+                    <h2>Client's QR</h2>
                     <input class='input-qr-real' type="text"/>
                     <span class="button search-customer" title="Busca al cliente">
-                        <i class="fa fa-search" role="img" aria-hidden="true"/>
+                            <i class="fa fa-search" role="img" aria-hidden="true"/>
                     </span>
+                </div>
+                <div class="refunded box">
+                    <h2>Refunded QR</h2>
+                    <input class="qr-refunded" type="text"/>
                 </div>
             </div>
         </t>
@@ -35,7 +42,7 @@
                 <span class="label">
                     Recever code
                 </span>
-                <input class="detail client-recever" name="qr_recever_code"/>
+                <input class="detail client-recever" name="qr_recever_code" t-att-value='partner.qr_recever_code || ""' placeholder='QR Recever'/>
             </div>
         </t>
     </t>

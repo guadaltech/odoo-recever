@@ -10,22 +10,25 @@
     'website': "http://www.guadaltech.es - https://www.recever.app/",
 
     'category': "Point of Sale",
-    'version': '12.0.1.0.0',
+    'version': '12.0.2.0.0',
 
-    'depends': ['point_of_sale','base', 'pos_sale'],
+    'depends': ['point_of_sale', 'base', 'pos_sale'],
 
     'data': [
         'views/assets_extension.xml',
         'views/pos_recever.xml',
         'security/ir.model.access.csv',
-        'wizard/custom_wizard.xml'
+        'wizard/custom_wizard.xml',
+        'views/pos_config.xml',
+        'views/view_pos_pos_form.xml',
+        'views/res_partner.xml'
     ],
     'qweb': ['static/src/xml/recever.xml'],
     'installable': True,
-    'images': ['static/description/Banner.jpg'],
+    'images': 'static/description/images/main_screenshot.png',
     'license': 'LGPL-3',
     'support': 'hola@guadaltech.es',
-    'installable': True,
-    'auto_install': False,
-    'application': True,
+    'external_dependencies': {
+        'python': []
+    }
 }

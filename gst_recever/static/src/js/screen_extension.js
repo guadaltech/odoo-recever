@@ -17,7 +17,7 @@ screens.PaymentScreenWidget.include({
         if(document.querySelector('#recever-checkbox:checked') || document.querySelector('#irecever-checkbox:checked')) {
             var order = self.pos.get_order();
             var client = order.attributes.client;
-            var QR, type;
+            var QR, type, qrRefunded;
             if(document.querySelector('#irecever-checkbox:checked')) { //irecever
                 if(client!= null) {
                     if(!client.qr_recever_code) {
@@ -47,6 +47,10 @@ screens.PaymentScreenWidget.include({
                 }
             }
 
+            if(document.getElementsByClassName('qr-refunded')[0].value != "") {
+                qrRefunded = document.getElementsByClassName('qr-refunded')[0].value
+            };
+
             if(type) {
                 rpc.query({
                     model: 'pos.recever',
@@ -55,7 +59,7 @@ screens.PaymentScreenWidget.include({
                 }).then(function(resUser){
                     if (self.order_is_valid(force_validation)) {
                         self.finalize_validation();
-                        document.getElementsByClassName('button next highlight')[1].hidden = true;
+                        document.getElementsByClassName('button next highlight')[0].hidden = true;
                     }
                     rpc.query({
                         model: 'pos.recever',
@@ -66,15 +70,15 @@ screens.PaymentScreenWidget.include({
                         rpc.query({
                                 model: 'pos.recever',
                                 method: 'sendToRecever',
-                                args: [order.uid, QR, type]
+                                args: [order.uid, QR, type, qrRefunded]
                         }).then(function(resRecever){
                             self.gui.show_popup('alert',{
                                 'title': _t('Success'),
                                 'body':  _t(resRecever),
                             });
-                            document.getElementsByClassName('button next highlight')[1].hidden = false;
+                            document.getElementsByClassName('button next highlight')[0].hidden = false;
                         }, function(err,ev){
-                            document.getElementsByClassName('button next highlight')[1].hidden = false;
+                            document.getElementsByClassName('button next highlight')[0].hidden = false;
                             ev.preventDefault();
                             self.gui.show_popup('error',{
                                 'title': _t('Error'),
@@ -82,7 +86,7 @@ screens.PaymentScreenWidget.include({
                             });
                         });
                     }, function(err, ev) {
-                        document.getElementsByClassName('button next highlight')[1].hidden = false;
+                        document.getElementsByClassName('button next highlight')[0].hidden = false;
                         ev.preventDefault();
                         self.gui.show_popup('error',{
                             'title': _t('Error'),
@@ -90,7 +94,7 @@ screens.PaymentScreenWidget.include({
                         });
                     });
                 }, function(err, ev) {
-                    document.getElementsByClassName('button next highlight')[1].hidden = false;
+                    document.getElementsByClassName('button next highlight')[0].hidden = false;
                     ev.preventDefault();
                     self.gui.show_popup('error',{
                         'title': _t('Error'),
@@ -100,7 +104,7 @@ screens.PaymentScreenWidget.include({
             }
 
         } else { //sin recever
-            document.getElementsByClassName('button next highlight')[1].hidden = false;
+            document.getElementsByClassName('button next highlight')[0].hidden = false;
             this._super(force_validation);
         }
     },
@@ -110,15 +114,22 @@ screens.PaymentScreenWidget.include({
         var self = this;
         this._super();
         this.$('.search.box').hide();
+        this.$('.refunded.box').hide();
 
         this.$('#recever-checkbox').change(function(event) {
             var order = self.pos.get_order();
             var client = order.attributes.client;
             if($(this).prop("checked")){
+                $('#irecever-checkbox').prop("checked", false);
+                $('.button.js_invoice').removeClass('highlight');
+                order.set_to_invoice(false);
                 $('.search.box').show();
                 document.getElementsByClassName('button search-customer')[0].style.display = 'none';
+                document.getElementsByClassName('refunded box')[0].style.display = 'block';
+
             } else {
                 $('.search.box').hide();
+                $('.refunded.box').hide();
             }
         });
 
@@ -126,15 +137,21 @@ screens.PaymentScreenWidget.include({
             var order = self.pos.get_order();
             var client = order.attributes.client;
             if($(this).prop("checked")){
+                $('#recever-checkbox').prop("checked", false);
+                $('.button.js_invoice').addClass('highlight');
+                order.set_to_invoice(true);
                 $('.search.box').show();
                 document.getElementsByClassName('button search-customer')[0].style.display = 'inline-block';
-                $('.button.js_invoice').addClass('highlight');
+                document.getElementsByClassName('refunded box')[0].style.display = 'block';
             } else {
                 $('.search.box').hide();
+                $('.refunded.box').hide();
                 $('.button.js_invoice').removeClass('highlight');
+                order.set_to_invoice(false);
             }
         });
 
+        // Avoids the focus on the numpad
         this.$('.input-qr-real').keypress(function(event) {
             event.stopPropagation();
         });
@@ -142,6 +159,15 @@ screens.PaymentScreenWidget.include({
             event.stopPropagation();
         });
         this.$('.input-qr-real').keyup(function(event) {
+            event.stopPropagation();
+        });
+        this.$('input.qr-refunded').keypress(function(event) {
+            event.stopPropagation();
+        });
+        this.$('input.qr-refunded').keydown(function(event) {
+            event.stopPropagation();
+        });
+        this.$('input.qr-refunded').keyup(function(event) {
             event.stopPropagation();
         });
 
@@ -194,6 +220,13 @@ screens.PaymentScreenWidget.include({
                 }
             }
         });
+    },
+
+    click_invoice: function(){
+        var self = this;
+        if(!(document.querySelector('#recever-checkbox:checked') || document.querySelector('#irecever-checkbox:checked'))) {
+            this._super();
+        }
     },
 });
 

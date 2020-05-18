@@ -16,6 +16,7 @@ screens.PaymentScreenWidget.include({
         var self = this;
         if(document.querySelector('#recever-checkbox:checked') || document.querySelector('#irecever-checkbox:checked')) {
             var order = self.pos.get_order();
+            var config_id = order.pos.config.id;
             var client = order.attributes.client;
             var QR, type, qrRefunded;
             if(document.querySelector('#irecever-checkbox:checked')) { //irecever
@@ -55,7 +56,7 @@ screens.PaymentScreenWidget.include({
                 rpc.query({
                     model: 'pos.recever',
                     method: 'getUserData',
-                    args: [QR]
+                    args: [QR,config_id]
                 }).then(function(resUser){
                     if (self.order_is_valid(force_validation)) {
                         self.finalize_validation();
@@ -70,7 +71,7 @@ screens.PaymentScreenWidget.include({
                         rpc.query({
                                 model: 'pos.recever',
                                 method: 'sendToRecever',
-                                args: [order.uid, QR, type, qrRefunded]
+                                args: [order.uid, QR, type, qrRefunded,config_id]
                         }).then(function(resRecever){
                             self.gui.show_popup('alert',{
                                 'title': _t('Success'),
@@ -172,7 +173,7 @@ screens.PaymentScreenWidget.include({
         });
 
         this.$('.search-customer').click(function() {
-            var QR = document.getElementsByClassName('input-qr-real')[0].value
+            var QR = document.getElementsByClassName('input-qr-real')[0].value;
             if(QR == "") {
                self.gui.show_popup('error',{
                     'title': _t('empty QR'),
@@ -238,15 +239,16 @@ screens.ClientListScreenWidget.include({
 
         this.$('.new-customer').click(function(){
             if($('#irecever-checkbox').prop("checked")) {
-                var qr = document.getElementsByClassName('input-qr-real')[0].value
+                var qr = document.getElementsByClassName('input-qr-real')[0].value;
+                var config_id = self.pos.config.id;
                 if(qr != "") {
                     rpc.query({
                         model: 'pos.recever',
                         method: 'getUserData',
-                        args: [qr]
+                        args: [qr,config_id]
                     }).then(function(response){
                         console.log(response)
-                        var res = JSON.parse(response)
+                        var res = JSON.parse(response);
                         document.getElementsByClassName('detail client-name')[0].value = res["name"]
                         document.getElementsByClassName('detail client-address-street')[0].value = res["taxData"]["residence"]
                         document.getElementsByClassName('detail client-address-city')[0].value = res["taxData"]["locality"]

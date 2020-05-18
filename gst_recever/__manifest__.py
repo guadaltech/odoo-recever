@@ -10,7 +10,7 @@
     'website': "http://www.guadaltech.es - https://www.recever.app/",
 
     'category': "Point of Sale",
-    'version': '12.0.2.0.0',
+    'version': '12.0.3.0.0',
 
     'depends': ['point_of_sale', 'base', 'pos_sale'],
 

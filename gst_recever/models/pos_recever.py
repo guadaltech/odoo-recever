@@ -23,20 +23,12 @@ class PosRecever(models.Model):
     recever_password = fields.Char(string='Password', help='obtain it at the Recever page.')
     recever_token = fields.Text(string='Token')
     recever_baseurl = fields.Char(string='Base url', default='https://api.recever.app/api')
+    pos_conf_id = fields.Many2one("pos.config", string="Pos Config", required=True)
 
-    @api.model
-    def create(self, vals):
-        """ Limit to one record. """
-        recever = self.env['pos.recever'].search([])
-        if len(recever) >= 1:
-            raise Warning(_("There can only be one configuration. Edit the created one."))
-        else:
-            return super(PosRecever, self).create(vals)
-
-    def _token_request(self):
+    def _token_request(self,config_id):
         """ Auxiliar method that obtains and saves the token needed for the API.
             Outputs ->  token: token obtained from the API """
-        recever = self.env['pos.recever'].search([])[0]
+        recever = self.env['pos.recever'].search([('pos_conf_id','=',config_id)])[0]
         URLbase = recever.recever_baseurl
         DATAauth = {
             "email": recever.recever_email,
@@ -60,19 +52,19 @@ class PosRecever(models.Model):
             return token
 
     @api.model
-    def getAuth(self):
+    def getAuth(self,config_id):
         """ Method that checks and return the token.
             Outputs ->  token: token obtained from the API
                         recever: recever config from the database """
         try:
-            recever = self.env['pos.recever'].search([])[0]
+            recever = self.env['pos.recever'].search([('pos_conf_id','=',config_id)])[0]
             token = recever.recever_token
             if token:
                 if (datetime.datetime.now() - recever.write_date).total_seconds() / 3600 >= 360:  # Expiration check
                     token = None
 
             if not token:  # Expired token
-                token = self._token_request()
+                token = self._token_request(config_id)
 
             return werkzeug.wrappers.Response(response=[token, recever],
                                               status=200)
@@ -88,7 +80,7 @@ class PosRecever(models.Model):
     def obtain_token(self):
         """ Method that checks the filled values. """
         try:
-            self._token_request()
+            self._token_request(self.pos_conf_id.id)
             view = self.env.ref('gst_recever.custom_recever_wizard')
             view_id = view and view.id or False
             context = dict(self._context or {})
@@ -108,12 +100,12 @@ class PosRecever(models.Model):
             raise Warning(e)
 
     @api.model
-    def getUserData(self, QR):
+    def getUserData(self, QR, config_id):
         """ Method that obtains the user data in order to fill the invoice.
             Inputs -> QR: QR of the Recever account on the APK.
             Outputs -> string that contains all the data of the user. """
         try:
-            datos = self.getAuth()
+            datos = self.getAuth(config_id)
             if datos.status_code != 200:
                 raise Warning(datos.response)
             token = datos.response[0]
@@ -133,7 +125,7 @@ class PosRecever(models.Model):
             raise Warning(e)
 
     @api.model
-    def sendToRecever(self, id, QR, type, qrRefunded, **kw):
+    def sendToRecever(self, id, QR, type, qrRefunded, config_id, **kw):
         """ Method that sends the ticket/invoice to Recever.
             Inputs ->   id: Pos Order uid.
                         QR: QR of the Recever account on the APK.
@@ -141,73 +133,73 @@ class PosRecever(models.Model):
         """
         self.env.cr.commit()
         try:
-            datos = self.getAuth()
+            datos = self.getAuth(config_id)
             if datos.status_code != 200:
                 raise Warning(datos.response)
             token = datos.response[0]
             recever = datos.response[1]
 
             # -1 to avoid errors when something goes wrong
-            order = self.env['pos.order'].search(
-                [('pos_reference', 'like', '%' + id + '%'), ('qr_recever_code', '=', False)])[-1]
+            orders = self.env['pos.order'].search(
+                [('pos_reference', 'like', '%' + id + '%'),('qr_recever_code', '=', False)])
+            if orders:
+                for order in orders:
+                    ### TICKET/INVOICE START
+                    ticket = {}
+                    items = []
+                    iva = {}
 
-            if order:
-                ### TICKET/INVOICE START
-                ticket = {}
-                items = []
-                iva = {}
+                    for line in order.lines:
+                        total = line.qty * line.price_subtotal
+                        if line.tax_ids:
+                            for tax in line.tax_ids:
+                                iva[str(tax.amount).replace(".", ",")] = round(
+                                    float(iva.get(tax.amount, 0.0)) + round(tax.amount / 100 * total, 2), 2)
 
-                for line in order.lines:
-                    total = line.qty * line.price_subtotal
-                    if line.tax_ids:
-                        for tax in line.tax_ids:
-                            iva[str(tax.amount).replace(".", ",")] = round(
-                                float(iva.get(tax.amount, 0.0)) + round(tax.amount / 100 * total, 2), 2)
+                        items.append({'cantidad':
+                                          line.qty, 'descripcion': line.display_name, 'precio':
+                                          round(line.price_subtotal, 2), 'total': round(total, 2)})
 
-                    items.append({'cantidad':
-                                      line.qty, 'descripcion': line.display_name, 'precio':
-                                      round(line.price_subtotal, 2), 'total': round(total, 2)})
+                    ticket['items'] = items
+                    ticket['total'] = {'subTotal':
+                                           round(order.amount_paid - order.amount_tax, 2), 'iva': iva, 'total': round(
+                        order.amount_paid, 2), 'recibido':
+                                           round((order.amount_paid + order.amount_return), 2), 'cambio':
+                                           order.amount_return}
+                    config = order.session_id.config_id
+                    ticket['extra'] = {'numero_documento': order.name,
+                                       'datos_fiscales_establecimiento': [config.street, config.city,
+                                                                          config.state_id.display_name, config.zip,
+                                                                          config.country_id.display_name],
+                                       'mensaje_final': config.ticket_message}
+                    ### TICKET/INVOICE END
 
-                ticket['items'] = items
-                ticket['total'] = {'subTotal':
-                                       round(order.amount_paid - order.amount_tax, 2), 'iva': iva, 'total': round(
-                    order.amount_paid, 2), 'recibido':
-                                       round((order.amount_paid + order.amount_return), 2), 'cambio':
-                                       order.amount_return}
-                config = order.session_id.config_id
-                ticket['extra'] = {'numero_documento': order.name,
-                                   'datos_fiscales_establecimiento': [config.street, config.city,
-                                                                      config.state_id.display_name, config.zip,
-                                                                      config.country_id.display_name],
-                                   'mensaje_final': config.ticket_message}
-                ### TICKET/INVOICE END
+                    DATAticket = {
+                        "purchaseDate": order.date_order.astimezone(tz.gettz(order.user_id.tz)).isoformat(),
+                        "name": id,
+                        "ticketType": type,
+                        "ticket": json.loads(json.dumps(ticket)),
+                        "qrCode": QR,
+                        "license": recever.recever_license,
+                        "price": round(order.amount_paid, 2),
+                        "qrRefunded": qrRefunded
+                    }
 
-                DATAticket = {
-                    "purchaseDate": order.date_order.astimezone(tz.gettz(order.user_id.tz)).isoformat(),
-                    "name": id,
-                    "ticketType": type,
-                    "ticket": json.loads(json.dumps(ticket)),
-                    "qrCode": QR,
-                    "license": recever.recever_license,
-                    "price": round(order.amount_paid, 2),
-                    "qrRefunded": qrRefunded
-                }
+                    print(json.dumps(DATAticket))
 
-                print(json.dumps(DATAticket))
+                    HEADERticket = {
+                        "Authorization": token,
+                        "Content-Type": "application/json"
+                    }
+                    r2 = requests.post(recever.recever_baseurl + '/recevers/', data=json.dumps(DATAticket),
+                                       headers=HEADERticket)
 
-                HEADERticket = {
-                    "Authorization": token,
-                    "Content-Type": "application/json"
-                }
-                r2 = requests.post(recever.recever_baseurl + '/recevers/', data=json.dumps(DATAticket),
-                                   headers=HEADERticket)
-
-                if r2.status_code != 200:
-                    error = json.loads(r2.text)["error"]["message"]
-                    raise Warning(_(error))
-                else:
-                    order.qr_recever_code = json.loads(r2.text)['qr']['qrCode']
-                    return (_("%s send.") % type)
+                    if r2.status_code != 200:
+                        error = json.loads(r2.text)["error"]["message"]
+                        raise Warning(_(error))
+                    else:
+                        order.qr_recever_code = json.loads(r2.text)['qr']['qrCode']
+                        return (_("%s send.") % type)
             else:
                 raise Warning(_("A server error has occurred. If it happens frequently, contact your provider."))
         except ConnectionError:
@@ -225,10 +217,10 @@ class PosRecever(models.Model):
         """
         espera = 0
         if lines >= 9:
-            espera = 9
+            espera = 10
         else:
             if lines == 1 or lines == 2:
-                espera = 3
+                espera = 5
             else:
                 espera = lines + 1
         time.sleep(espera)

@@ -12,6 +12,7 @@
                                 <field name="recever_email"/>
                                 <field name="recever_password" password="True"/>
                                 <field name="recever_license"/>
+                                <field name="pos_conf_id"/>
                                 <button name="obtain_token" type="object" string="Check connection"
                                         class="oe_highlight" help="Obtains the token from the API of Recever."/>
                             </group>
@@ -28,6 +29,7 @@
                     <field name="recever_email"/>
                     <field name="recever_password" password="True"/>
                     <field name="recever_license"/>
+                    <field name="pos_conf_id"/>
                 </tree>
             </field>
         </record>

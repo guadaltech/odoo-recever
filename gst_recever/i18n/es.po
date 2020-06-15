@@ -61,6 +61,12 @@ msgid "City"
 msgstr "Ciudad"
 
 #. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_config__name_shop
+#: model_terms:ir.ui.view,arch_db:gst_recever.pos_config_view_form_ubicacion_tpv
+msgid "Name Shop"
+msgstr "Nombre de Tienda"
+
+#. module: gst_recever
 #. openerp-web
 #: code:addons/gst_recever/static/src/js/screen_extension.js:26
 #, python-format
@@ -297,6 +303,17 @@ msgstr "Calle"
 #: model_terms:ir.ui.view,arch_db:gst_recever.pos_config_view_form_ubicacion_tpv
 msgid "Street..."
 msgstr "Calle..."
+
+#. module: gst_recever
+#: model:ir.model.fields,field_description:gst_recever.field_pos_config__vat
+#: model_terms:ir.ui.view,arch_db:gst_recever.pos_config_view_form_ubicacion_tpv
+msgid "Vat"
+msgstr "NIF"
+
+#. module: gst_recever
+#: model_terms:ir.ui.view,arch_db:gst_recever.pos_config_view_form_ubicacion_tpv
+msgid "Vat..."
+msgstr "NIF..."
 
 #. module: gst_recever
 #. openerp-web

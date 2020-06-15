@@ -168,7 +168,7 @@ class PosRecever(models.Model):
                                            order.amount_return}
                     config = order.session_id.config_id
                     ticket['extra'] = {'numero_documento': order.name,
-                                       'datos_fiscales_establecimiento': [config.street, config.city,
+                                       'datos_fiscales_establecimiento': [config.vat,config.name_shop,config.street, config.city,
                                                                           config.state_id.display_name, config.zip,
                                                                           config.country_id.display_name],
                                        'mensaje_final': config.ticket_message}

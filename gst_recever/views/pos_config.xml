@@ -18,6 +18,10 @@
                                 </div>
                                 <div class="content-group">
                                     <div class="row mt16" title="">
+                                        <label for="vat" string="Vat" class="col-lg-3 o_light_label"/>
+                                        <field name="vat" placeholder="Vat..."/>
+                                        <label for="name_shop" string="Name Shop" class="col-lg-3 o_light_label"/>
+                                        <field name="name_shop" placeholder="Name Shop..."/>
                                         <label for="street" string="Street" class="col-lg-3 o_light_label"/>
                                         <field name="street" placeholder="Street..."/>
                                         <label for="city" string="City" class="col-lg-3 o_light_label"/>
